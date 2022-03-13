@@ -1,4 +1,5 @@
 const User = require("./user.model");
+const Database = require('../../core/database');
 
 const UsersController = {
   getAll: (req, res) => {
@@ -7,55 +8,66 @@ const UsersController = {
       res.send(results);
     });
   },
+
   getOne: (req, res) => {
-    const user = new User();
-    user.getOne(req.params.id).then((result) => {
-      if (result) {
-        res.send(result);
-      } else {
-        res.sendStatus(404);
-      }
+    const user = new user();
+    user.getOne(req.params.id).then(result => {
+        if(result) {
+            res.send(result);
+        } else {
+            res.sendStatus(404);
+        }
     });
-  },
+},
 
   login: (req, res) => {
     const user = new User();
-    user.getOne({ "email": req.params.email }).then((result) => {
-      if (
-        result.password === req.params.password &&
-        req.params.connected != true
-      ) {
-        const connected = true;
-        connected.push(req.body.connected);
-        result.url ="http://127.0.01:3000/users/" + result._id;
 
-        user.findOneAndUpdate({ _id: result._id }, { connected: connected });
+    user.findEmail(req.body.email).then((result) => {
+      if (result) {
+        if(req.body.password == result.password) {
+          result.connected = true;
+          res.send(result);
+          
+        } else res.send(404);
       } else {
         res.sendStatus(404);
       }
     });
   },
 
-  create: (req, res) => {
-    console.log(req.body.email);
-    console.log(req.body.password);
-    const user = new User({
+
+  signIn: (req, res) => {
+    console.log(req.body);
+
+    const user = {
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        role: "622aef0c8a2fa28a1d9abb1d",
-    });
+        role: req.body.role,
+        connected: false,
+      };
 
-    user.save()
-        .then((result => {
-            res.post(result);
-        })
-        )
-        .catch((err) => console.log(err))
+      Database.collection("users").insertOne(user, function(err, res) {
+          if(err) console.log("err");
+          else console.log("Todo bien")
+          
+      });
+     res.send(user);
   },
 };
 
-module.exports = UsersController;
 
+
+
+
+// user A room B role C
+// room B add user A to userList 
+// UPDATE  user A role with room B: role C pair
+
+
+
+module.exports = UsersController;
 //user
 // session conectado o no
 //link grupo & asigna un roll
@@ -64,4 +76,4 @@ module.exports = UsersController;
 //GROUP creator link grupo
 //role admin o no
 // channel
-// message
+// user

@@ -28,6 +28,15 @@ class Model {
             _id: ObjectId(id)
         });
     }
+
+
+    findEmail(email) {
+        return this.collection.findOne({
+            email: email
+        });
+    }
+
+    
 }
 
 module.exports = Model;

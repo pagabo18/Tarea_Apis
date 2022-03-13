@@ -34,53 +34,56 @@ router.get("/", controller.getAll);
 router.get("/:id", controller.getOne);
 
 
-
 /**
  * @swagger
- *   /api/users{email, password}:
+ *   /api/users:
  *     put:
  *       tags:
  *         - Users
  *       description: Login
- *     parameters:
- *       - in: body
- *         name: email
- *         description: email of the user
- *         type: string
- *       - in: body
- *         name: password
- *         description: user password
- *         type: string
+ *       parameters:
+ *         - in: body
+ *           name: email
+ *           description: email of the user
+ *           type: string
+ *         - in: body
+ *           name: password
+ *           description: user password
+ *           type: string
  */
-router.put("/:email/:password", controller.login);
+router.put("/login", controller.login);
 
 
 /**
  * @swagger
- *   /api/users{email, password, name}:
+ *   /api/users:
  *     post:
  *       tags:
  *         - Users
  *       description: Create a new user
- *     parameters:
- *       - in: body
- *         name: email
- *         description: email of the user
- *         type: string
- *       - in: body
- *         name: password
- *         description: user password
- *         type: string
- *       - in: body
- *         name: name
- *         description: user name
- *         type: string
- *       - in: body
- *         name: role
- *         description: user role
- *         type: object
+ *       parameters:
+ *         - in: body
+ *           name: email
+ *           description: email of the user
+ *           type: string
+ *           required: true
+ *         - in: body
+ *           name: password
+ *           description: user password
+ *           type: string
+ *           required: true
+ *         - in: body
+ *           name: name
+ *           description: user name
+ *           type: string
+ *           required: true
+ *         - in: body
+ *           name: role
+ *           description: user role
+ *           type: array
+ *           required: true
  *          
  */
-router.post("/:email/:password", controller.create);
+router.post("/signin", controller.signIn);
 
 module.exports = router;

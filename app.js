@@ -1,4 +1,7 @@
 const express = require('express');
+
+
+const bp = require('body-parser');
 const path = require('path');
 const Database = require('./src/core/database');
 const apiRoutes = require('./src/routes');
@@ -9,6 +12,9 @@ const swaggerUi = require('swagger-ui-express');
 const app = express();
 
 const port = process.env.PORT || 3000;
+
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
 
 app.use('/assets', express.static(path.join(__dirname, 'public')));
 
@@ -48,5 +54,3 @@ Database.connect().then(() => {
 
     
 });
-
-

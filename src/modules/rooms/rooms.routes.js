@@ -35,7 +35,7 @@ const controller = require('./rooms.controller');
  
  /**
  * @swagger
- *   /api/rooms{name, description}:
+ *   /api/rooms:
  *     post:
  *       tags:
  *         - rooms
@@ -44,10 +44,6 @@ const controller = require('./rooms.controller');
  *       - in: body
  *         name: name
  *         description: name of the room
- *         type: string
- *       - in: body
- *         name: description
- *         description: room description
  *         type: string
  *       - in: body
  *         name: users
@@ -61,10 +57,41 @@ const controller = require('./rooms.controller');
  *         name: roles
  *         description: user role
  *         type: array
+ *       - in: body
+ *         name:father
+ *         description: user father
+ *         type: string
  *          
  */
 router.post('/', controller.create);
 
+/**
+ *  @swagger
+  *   /api/rooms/invite:
+ *     post:
+ *       tags:
+ *         - rooms
+ *       description: Create a new room
+ *     parameters:
+ *       - in: body
+ *         name: room
+ *         description: the room
+ *         type: string
+ *       - in: body
+ *         name: requester
+ *         description: room requester
+ *         type: string
+ *       - in: body
+ *         name: role
+ *         description: new user role
+ *         type: array
+ *       - in: body
+ */
+router.post('/invite', controller.linkCreate);
+
+
+
+//localhost:3000/api/rooms/invite/622d7000aba6e4547bffb035
 // router.put('/:id', controller.update);
 // router.delete('/:id', controller.delete);
 

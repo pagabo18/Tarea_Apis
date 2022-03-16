@@ -3,24 +3,24 @@ const controller = require('./linkA.controller');
 
 /** 
  * @swagger
- *   /api/linkAs:
+ *   /api/linkA:
  *     get:
  *       tags:
- *         - linkAs
- *       description: Get all linkAs
+ *         - linkA
+ *       description: Get all linkA
  *       responses:
  *         200:
- *           description: Array with a list of linkAs
+ *           description: Array with a list of linkA
  */
  router.get("/", controller.getAll);
 
 
  /**
   * @swagger
-  *   /api/linkAs/{id}:
+  *   /api/linkA/{id}:
   *     get:
   *       tags:
-  *         - linkAs
+  *         - linkA
   *       description: Get a user by id
   *       parameters:
   *         - in: path

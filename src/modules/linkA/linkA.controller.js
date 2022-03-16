@@ -1,7 +1,5 @@
 const Database = require("../../core/database");
 const linkAs = require("./linkA.models");
-const Database = require('../../core/database');
-const User = require('../users/user.model');
 
 const linkAsController = {
     getAll: (req, res) => {
